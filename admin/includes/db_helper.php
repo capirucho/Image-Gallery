@@ -2,7 +2,7 @@
 
 class Db_helper {
 
-		protected static $db_table = "users";
+		//protected static $db_table = "users";
 
         public static function find_all()
         {
@@ -15,14 +15,14 @@ class Db_helper {
             return static::find_by_query("SELECT * FROM ".static::$db_table);
         }
 
-        public static function find_by_id($userId)
+        public static function find_by_id($id)
         {
             global $database;
-            //$result_set = $database->query("SELECT * FROM users WHERE id = $userId LIMIT 1");
+            //$result_set = $database->query("SELECT * FROM users WHERE id = $id LIMIT 1");
             //$found_user = mysqli_fetch_array($result_set);
             //return $found_user;
 
-            $the_result_array = static::find_by_query("SELECT * FROM ".static::$db_table." WHERE userId = $userId LIMIT 1");
+            $the_result_array = static::find_by_query("SELECT * FROM ".static::$db_table." WHERE id = $id LIMIT 1");
 
             return !empty($the_result_array) ? array_shift($the_result_array) : false;
 
@@ -110,8 +110,8 @@ class Db_helper {
 
 
         public function save() {
-            return isset($this->userId) ? $this->update() : $this->create();
-            //return isset($this->userId) ? 'found user' : 'we need to create user';
+            return isset($this->id) ? $this->update() : $this->create();
+            //return isset($this->id) ? 'found user' : 'we need to create user';
         }
 
 
@@ -125,7 +125,7 @@ class Db_helper {
             $sql .= "VALUES ('".implode("','", array_values($theProperties))."')";
 
             if($database->query($sql)) {
-                $this->userId = $database->the_insert_id();
+                $this->id = $database->the_insert_id();
                 return true;
             } else {
                 return false;
@@ -147,7 +147,7 @@ class Db_helper {
 
             $sql =  "UPDATE ".static::$db_table." SET ";
             $sql .= implode(", ", $propertyPairs);
-            $sql .= " WHERE userId= " . $database->escape_string($this->userId);
+            $sql .= " WHERE id= " . $database->escape_string($this->id);
         
             /// old way below before abstraction ////
             // $sql =  "UPDATE ".static::$db_table." SET ";
@@ -155,7 +155,7 @@ class Db_helper {
             // $sql .= "password = '" . $database->escape_string($this->password) . "', ";
             // $sql .= "first_name = '" . $database->escape_string($this->first_name) . "', ";
             // $sql .= "last_name = '" . $database->escape_string($this->last_name) . "' ";
-            // $sql .= " WHERE userId= " . $database->escape_string($this->userId);
+            // $sql .= " WHERE id= " . $database->escape_string($this->id);
 
             $database->query($sql);
 
@@ -170,7 +170,7 @@ class Db_helper {
 
             //$sql =  "DELETE FROM ".static::$db_table." ";
             $sql =  "DELETE FROM ".static::$db_table." ";
-            $sql .= "WHERE userId=" . $database->escape_string($this->userId);
+            $sql .= "WHERE id=" . $database->escape_string($this->id);
             $sql .= " LIMIT 1";
 
             $database->query($sql);

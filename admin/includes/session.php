@@ -8,7 +8,7 @@ class Session
 {
 	
 	private $signedIn = false;
-	public $userId;
+	public $id;
 	public $message;
 
 
@@ -42,24 +42,24 @@ class Session
 
 	public function login($user) {
 		if ($user) {
-			$this->userId = $_SESSION['userId'] = $user->userId;
+			$this->id = $_SESSION['id'] = $user->id;
 			$this->signedIn = true;
 		}
 	}
 
 	public function logout() {
-		unset($_SESSION['userId']);
-		unset($this->userId);
+		unset($_SESSION['id']);
+		unset($this->id);
 		$this->signedIn = false;
 	}
 
 	private function checkTheLogin() {
 
-		if(isset($_SESSION['userId'])) {
-			$this->userId = $_SESSION['userId'];
+		if(isset($_SESSION['id'])) {
+			$this->id = $_SESSION['id'];
 			$this->signedIn = true;
 		} else {
-			unset($this->userId);
+			unset($this->id);
 			$this->signedIn = false;
 		}
 

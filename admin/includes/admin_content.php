@@ -26,7 +26,7 @@
 //                }
 
                 ////////////////////// get user by ID ////////
-                //$found_user = User::find_user_by_id(4);
+                //$found_user = User::find_by_id(4);
 
              // $user = new User();
              // $user->id = $found_user['id'];
@@ -46,7 +46,7 @@
 
                 // echo "User found: <br> id = " . $user->id . ", Name = " . $user->userName;
 
-                //$found_user = User::find_user_by_id(3);
+                //$found_user = User::find_by_id(3);
                 //echo $found_user->username;
 
                 //testing includes file missing script
@@ -64,7 +64,7 @@
                 // $testingUser->save();
 
                 // //testing update method
-                // $user = User::find_user_by_id(27);
+                // $user = User::find_by_id(27);
                 // if(!empty($user)) {
                 //     $user->password = "shit"; 
                 //     $user->update();                   
@@ -78,10 +78,10 @@
 
                 //testing delete user method
 
-                // $user = User::find_user_by_id(29);
+                // $user = User::find_by_id(29);
                 // $user->deleteUser(); 
 
-                // $user = User::find_user_by_id(29);
+                // $user = User::find_by_id(29);
                 // if(!empty($user)) {
                 //     $user->deleteUser(); 
                 //     echo "success deleting";
@@ -90,7 +90,7 @@
                 // }
 
                 //testing save function
-                // $user = User::find_user_by_id(27);
+                // $user = User::find_by_id(27);
                 // if(!empty($user)) {
                 //     $user->password = "cat";
                 //     $user->save();
@@ -116,24 +116,31 @@
                 // $user->create();
 
 
+                //find photo by id
+
+                $testPhoto = Photo::find_by_id(14);
+
+                echo $testPhoto->photo_filename;
+
+
                 $photos = Photo::find_all();
 
                 foreach ($photos as $photo) {
-                    echo "results from find all: ".$photo->photo_title."<br>";
+                    echo "<br><br>results from find all: ".$photo->photo_title."<br>";
                 }
 
 
                 // testing save() method
-                $photo = new Photo();
-                $photo->photo_title = "boom";
-                $photo->photo_description = "verts";
-                $photo->photo_filename = "smile.jpg";
-                $photo->photo_type = "jpg";
-                $photo->photo_size = 5;
-                $photo->create();                
+                // $photo = new Photo();
+                // $photo->photo_title = "boom";
+                // $photo->photo_description = "verts";
+                // $photo->photo_filename = "smile.jpg";
+                // $photo->photo_type = "jpg";
+                // $photo->photo_size = 5;
+                // $photo->create();                
                 
 
-                echo "<br><br>".INCLUDES_PATH;
+                // echo "<br><br>".INCLUDES_PATH;
                                                                   
 
 

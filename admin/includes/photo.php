@@ -4,8 +4,8 @@
 	class Photo extends Db_helper {
 
 		protected static $db_table = "photos";
-		protected static $db_table_fields = array('photo_id','photo_title', 'photo_description', 'photo_filename', 'photo_type', 'photo_size');
-		public $photo_id;
+		protected static $db_table_fields = array('id','photo_title', 'photo_description', 'photo_filename', 'photo_type', 'photo_size');
+		public $id;
 		public $photo_title;
 		public $photo_description;
 		public $photo_filename;
@@ -47,9 +47,14 @@
 			
 		}
 
+		//get image path on server. this path will be used to dynamically display image on browser.
+		public function image_path() {
+			return $this->upload_directory.DS.$this->photo_filename;
+		}
+
 		public function upload_photo() {
 
-			if($this->photo_id) {
+			if($this->id) {
 				$this->update();
 			} else {
 
@@ -86,6 +91,18 @@
 			
 			}
 
+		}
+
+		public function delete_photo() {
+
+			if($this->deleteById()) {
+				$target_path = SITE_ROOT . DS . 'admin'. DS . $this->image_path();
+
+				return unlink($target_path) ? true : false;
+			} else {
+
+				return false;
+			}
 		}
 
 	}

@@ -24,7 +24,8 @@ function autoLoadClasses($class) {
 spl_autoload_register('autoLoadClasses');
 
 function redirectUser($location) {
-	header('Location: '.$location);
+	header("Location: {$location}");
+	exit;
 }
 
 

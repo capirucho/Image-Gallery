@@ -10,13 +10,13 @@
     
     if(isset($_POST['submit'])) {
         $photo = new Photo();
-        $photo->title = $_POST['title'];
+        $photo->photo_title = $_POST['photo_title'];
         $photo->set_file($_FILES['file_upload']);
 
         if($photo->upload_photo()) {
             $message = "Photo uploaded Succesfully.";
         } else {
-            $message = join("<br>", $photo->custom->errors);
+            $message = join("<br>", $photo->custom_errors);
         }
     }
 
@@ -56,12 +56,19 @@
                     </h1>
 
                     <?php echo $message; ?>
-
-                    <form action="upload.php" method="post" enctype="multipart/form-data">
-                        <input type="text" name="title">
-                        <input type="file" name="file_upload">
-                        <input type="submit" name="submit">
-                    </form>                    
+                    <div class="col-md-6">
+                        <form action="upload.php" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for"imageTitle">Image Title</label>
+                                <input id="imageTitle" type="text" name="photo_title" placeholder="Image title">
+                            </div>
+                            <div class="form-group">
+                                <input type="file" name="file_upload">
+                            </div>                        
+                            
+                            <input type="submit" name="submit" class="btn btn-primary">
+                        </form>
+                    </div>                    
 
 
                 </div>
